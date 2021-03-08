@@ -249,6 +249,7 @@ function inputKey(e){
             }
         }
         else if(e.key == 'Enter' || e.key == '='){
+            console.log(b);
             if(b != ""){ // if b == "" do nothing
                 if(b == 0 && operation=='divide'){
                     a = "";
@@ -278,6 +279,10 @@ function inputKey(e){
 function display(){
     let s = ''
     if(result){
+        if(result == 'Larry'){
+            answer.innerHTML = 'Larry';
+            return;
+        }
         result = parseFloat(result.toFixed(5));
         answer.innerHTML = `${result}`;
     }
