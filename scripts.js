@@ -133,7 +133,7 @@ function input(e){
 }
 
 function display(string){
-    let answer = document.querySelector("#answer-container");
+    let answer = document.querySelector("#answer");
     answer.innerHTML = string;
 }
 
