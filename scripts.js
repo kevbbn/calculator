@@ -31,7 +31,7 @@ function calculate(a,b,operation){
 
 function input(e){
     if(operation == null){ // either we add to a, or this is an calculate
-        if(isNaN(e.target.id) == false){
+        if(isNaN(e.key) == false){
             a += `${e.target.id}`;
             result = "";
             display();
@@ -135,7 +135,137 @@ function input(e){
 
     }
 }
+function inputKey(e){
+    console.log(e);
+    if(operation == null){ // either we add to a, or this is an calculate
+        if(isNaN(e.key) == false){
+            a += `${e.key}`;
+            result = "";
+            display();
+        }
+        else if(e.key == '+' || e.key == '-' || e.key == '*' || e.key == '\/'){
+            if(e.key == '+'){
+                operation = 'add';
+            }
+            else if(e.key == '-'){
+                operation = 'subtract';
+            }
+            else if(e.key == '*'){
+                operation = 'multiply';
+            }
+            else if(e.key == '\/'){
+                operation = 'divide';
+            }
+            if(result){
+                a = parseFloat(result.toFixed(5));
+                result = "";
+                b = "";
+            }
+            display();
+        }
+        else if(e.key == 'c'){
+            a = "";
+            b = "";
+            result = "";
+            operation = null;
+            display();
+        }
+        else if(e.key == 'Backspace'){
+            if(result){
+                a = result.toString();
+                result = "";
+            }
+            a = a.slice(0,-1);
+            if(a == ""){
+                display();
+            }
+            else{
+                display();
+            }
+        }
+        else if(e.key == '.'){
+            if(a=="" && result != ""){
+                a = `${result}`;
+                result = '';
+            }
 
+            if(!a.includes('.')){
+                a += '.'
+            }
+            display();
+        }
+    }
+    else{
+        if(isNaN(e.key) == false){
+            b += `${e.key}`;
+            display();
+        }
+        else if(e.key == '+' || e.key == '-' || e.key == '*' || e.key == '\/'){
+            if(e.key == '+'){
+                operation = 'add';
+            }
+            else if(e.key == '-'){
+                operation = 'subtract';
+            }
+            else if(e.key == '*'){
+                operation = 'multiply';
+            }
+            else if(e.key == '\/'){
+                operation = 'divide';
+            }
+            if(b != ""){ // if b = "", we are just changing operations, else, calculate it
+                a = calculate(a,b,operation);
+                b = "";
+            }
+            operation = e.key;
+            display();
+            
+        }
+        else if(e.key == 'c'){
+            a = "";
+            b = "";
+            result = "";
+            operation = null;
+            display();
+        }
+        else if(e.key == 'Backspace'){
+            b = b.slice(0,-1);
+            if(b == ""){
+                display();
+            }
+            else{
+                display();
+            }
+        }
+        else if(e.key == 'Enter' || e.key == '='){
+            console.log('enter');
+            if(b != ""){ // if b == "" do nothing
+                if(b == 0 && operation=='divide'){
+                    a = "";
+                    b = "";
+                    result = "";
+                    operation = null;
+                    answer.innerHTML = 'Larry';
+                    
+                }
+                else{
+                    result = calculate(a,b,operation);
+                    a = "";
+                    b = "";
+                    operation = null;
+                    display();
+                }
+            }
+        }
+        else if(e.key == '.'){
+            if(!b.includes('.')){
+                b += '.'
+                display();
+            }
+        }
+
+    }
+}
 function display(){
     let s = ''
     if(result){
@@ -169,3 +299,4 @@ let answer = document.querySelector("#answer");
 buttons.forEach(button =>{
     button.addEventListener('click',input)
 })
+document.addEventListener('keydown', inputKey);
