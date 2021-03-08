@@ -149,6 +149,7 @@ function inputKey(e){
                 operation = 'add';
             }
             else if(e.key == '-'){
+                console.log('yes');
                 operation = 'subtract';
             }
             else if(e.key == '*'){
