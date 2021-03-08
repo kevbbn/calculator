@@ -85,6 +85,7 @@ function input(e){
         else if(e.target.id == 'add' || e.target.id == 'subtract' || e.target.id == 'multiply' || e.target.id == 'divide'){
             if(b != ""){ // if b = "", we are just changing operations, else, calculate it
                 a = calculate(a,b,operation);
+                a = parseFloat(a.toFixed(5));
                 b = "";
             }
             operation = e.target.id;
@@ -140,6 +141,7 @@ function inputKey(e){
     console.log(e);
     if(operation == null){ // either we add to a, or this is an calculate
         if(isNaN(e.key) == false){
+
             a += `${e.key}`;
             result = "";
             display();
@@ -217,6 +219,7 @@ function inputKey(e){
             }
             if(b != ""){ // if b = "", we are just changing operations, else, calculate it
                 a = calculate(a,b,operation);
+                a = parseFloat(a.toFixed(5));
                 b = "";
             }
             display();
