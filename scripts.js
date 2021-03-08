@@ -31,7 +31,7 @@ function calculate(a,b,operation){
 
 function input(e){
     if(operation == null){ // either we add to a, or this is an calculate
-        if(isNaN(e.key) == false){
+        if(isNaN(e.target.id) == false){
             a += `${e.target.id}`;
             result = "";
             display();
@@ -135,6 +135,7 @@ function input(e){
 
     }
 }
+
 function inputKey(e){
     console.log(e);
     if(operation == null){ // either we add to a, or this is an calculate
@@ -297,6 +298,6 @@ let result = "";
 let operation = null;
 let answer = document.querySelector("#answer");
 buttons.forEach(button =>{
-    button.addEventListener('click',input)
+    button.addEventListener('click',input);
 })
 document.addEventListener('keydown', inputKey);
