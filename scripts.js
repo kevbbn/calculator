@@ -219,7 +219,6 @@ function inputKey(e){
                 a = calculate(a,b,operation);
                 b = "";
             }
-            operation = e.key;
             display();
             
         }
