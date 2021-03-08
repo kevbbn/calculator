@@ -14,7 +14,7 @@ function divide(a,b){
     return parseFloat(a)/parseFloat(b);
 }
 
-function operator(a,b,operation){
+function calculate(a,b,operation){
     if(operation == 'add'){
         return add(a,b);
     }
@@ -30,26 +30,27 @@ function operator(a,b,operation){
 }
 
 function input(e){
-    if(operation == null){ // either we add to a, or this is an operator
+    if(operation == null){ // either we add to a, or this is an calculate
         if(isNaN(e.target.id) == false){
             a += `${e.target.id}`;
             result = "";
-            display(a);
+            display();
         }
         else if(e.target.id == 'add' || e.target.id == 'subtract' || e.target.id == 'multiply' || e.target.id == 'divide'){
             operation = e.target.id;
             if(result){
-                a = result;
+                a = parseFloat(result.toFixed(5));
                 result = "";
+                b = "";
             }
-            display(parseFloat(parseFloat(a).toFixed(5)));
+            display();
         }
         else if(e.target.id == 'clear'){
             a = "";
             b = "";
             result = "";
             operation = null;
-            display(0);
+            display();
         }
         else if(e.target.id == 'delete'){
             if(result){
@@ -60,32 +61,32 @@ function input(e){
             }
             a = a.slice(0,-1);
             if(a == ""){
-                display(0);
+                display();
             }
             else{
-                display(a);
+                display();
             }
         }
         else if(e.target.id == 'period'){
             console.log('hi');
             if(!a.includes('.')){
                 a += '.'
-                display(a);
+                display();
             }
         }
     }
     else{
         if(isNaN(e.target.id) == false){
             b += `${e.target.id}`;
-            display(b);
+            display();
         }
         else if(e.target.id == 'add' || e.target.id == 'subtract' || e.target.id == 'multiply' || e.target.id == 'divide'){
             if(b != ""){ // if b = "", we are just changing operations, else, calculate it
-                a = operator(a,b,operation);
-                display(a);
+                a = calculate(a,b,operation);
                 b = "";
             }
             operation = e.target.id;
+            display();
             
         }
         else if(e.target.id == 'clear'){
@@ -93,15 +94,15 @@ function input(e){
             b = "";
             result = "";
             operation = null;
-            display(0);
+            display();
         }
         else if(e.target.id == 'delete'){
             b = b.slice(0,-1);
             if(b == ""){
-                display(0);
+                display();
             }
             else{
-                display(b);
+                display();
             }
         }
         else if(e.target.id == 'equal'){
@@ -111,30 +112,49 @@ function input(e){
                     b = "";
                     result = "";
                     operation = null;
-                    display("Err");
+                    //display("Err");
                 }
                 else{
-                    result = operator(a,b,operation);
+                    result = calculate(a,b,operation);
                     a = "";
                     b = "";
                     operation = null;
-                    display(parseFloat(result.toFixed(5)));
+                    display();
                 }
             }
         }
         else if(e.target.id == 'period'){
             if(!b.contains('.')){
                 b += '.'
-                display(b);
+                display();
             }
         }
 
     }
 }
 
-function display(string){
+function display(){
+    let s = ''
     let answer = document.querySelector("#answer");
-    answer.innerHTML = string;
+    if(result){
+        result = parseFloat(result.toFixed(5));
+        answer.innerHTML = `${result}`;
+    }
+    else if(a == ""){
+        answer.innerHTML = "0";
+    }
+    else if(operation == null){
+        answer.innerHTML = `${a}`;
+    }
+    else if (operation){
+        let operator = document.querySelector(`#${operation}`);
+        operator = operator.innerHTML; 
+        s = `${a} ${operator}`
+        if(b){
+            s += ` ${b}`;
+        }
+        answer.innerHTML = s;
+    }
 }
 
 
