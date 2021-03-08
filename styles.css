@@ -73,7 +73,7 @@ button{
 
 button:hover{
     cursor: pointer;
-    background-color: rgb(54, 54, 54);
+    background-color: #374f6d;
 }
 button:focus{
     outline: none;

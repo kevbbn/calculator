@@ -112,7 +112,8 @@ function input(e){
                     b = "";
                     result = "";
                     operation = null;
-                    //display("Err");
+                    answer.innerHTML = 'Larry';
+                    
                 }
                 else{
                     result = calculate(a,b,operation);
@@ -135,7 +136,6 @@ function input(e){
 
 function display(){
     let s = ''
-    let answer = document.querySelector("#answer");
     if(result){
         result = parseFloat(result.toFixed(5));
         answer.innerHTML = `${result}`;
@@ -163,6 +163,7 @@ let a = "";
 let b = "";
 let result = "";
 let operation = null;
+let answer = document.querySelector("#answer");
 buttons.forEach(button =>{
     button.addEventListener('click',input)
 })
