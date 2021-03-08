@@ -11,6 +11,9 @@ function multiply(a,b){
 }
 
 function divide(a,b){
+    if(b == 0){
+        return "Larry";
+    }
     return parseFloat(a)/parseFloat(b);
 }
 
@@ -37,13 +40,15 @@ function input(e){
             display();
         }
         else if(e.target.id == 'add' || e.target.id == 'subtract' || e.target.id == 'multiply' || e.target.id == 'divide'){
-            operation = e.target.id;
-            if(result){
-                a = parseFloat(result.toFixed(5));
-                result = "";
-                b = "";
+            if(a != '' || result != ''){
+                operation = e.target.id;
+                if(result){
+                    a = parseFloat(result.toFixed(5));
+                    result = "";
+                    b = "";
+                }
+                display();
             }
-            display();
         }
         else if(e.target.id == 'clear'){
             a = "";
@@ -147,25 +152,27 @@ function inputKey(e){
             display();
         }
         else if(e.key == '+' || e.key == '-' || e.key == '*' || e.key == '\/'){
-            if(e.key == '+'){
-                operation = 'add';
+            if(a != '' || result != ''){
+                if(e.key == '+'){
+                    operation = 'add';
+                }
+                else if(e.key == '-'){
+                    console.log('yes');
+                    operation = 'subtract';
+                }
+                else if(e.key == '*'){
+                    operation = 'multiply';
+                }
+                else if(e.key == '\/'){
+                    operation = 'divide';
+                }
+                if(result){
+                    a = parseFloat(result.toFixed(5));
+                    result = "";
+                    b = "";
+                }
+                display();
             }
-            else if(e.key == '-'){
-                console.log('yes');
-                operation = 'subtract';
-            }
-            else if(e.key == '*'){
-                operation = 'multiply';
-            }
-            else if(e.key == '\/'){
-                operation = 'divide';
-            }
-            if(result){
-                a = parseFloat(result.toFixed(5));
-                result = "";
-                b = "";
-            }
-            display();
         }
         else if(e.key == 'c'){
             a = "";
@@ -242,7 +249,6 @@ function inputKey(e){
             }
         }
         else if(e.key == 'Enter' || e.key == '='){
-            console.log('enter');
             if(b != ""){ // if b == "" do nothing
                 if(b == 0 && operation=='divide'){
                     a = "";
@@ -250,7 +256,6 @@ function inputKey(e){
                     result = "";
                     operation = null;
                     answer.innerHTML = 'Larry';
-                    
                 }
                 else{
                     result = calculate(a,b,operation);
