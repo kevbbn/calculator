@@ -54,9 +54,7 @@ function input(e){
         }
         else if(e.target.id == 'delete'){
             if(result){
-                console.log(result);
                 a = result.toString();
-                console.log(a);
                 result = "";
             }
             a = a.slice(0,-1);
@@ -68,11 +66,15 @@ function input(e){
             }
         }
         else if(e.target.id == 'period'){
-            console.log('hi');
+            if(a=="" && result != ""){
+                a = `${result}`;
+                result = '';
+            }
+
             if(!a.includes('.')){
                 a += '.'
-                display();
             }
+            display();
         }
     }
     else{
@@ -125,7 +127,7 @@ function input(e){
             }
         }
         else if(e.target.id == 'period'){
-            if(!b.contains('.')){
+            if(!b.includes('.')){
                 b += '.'
                 display();
             }
